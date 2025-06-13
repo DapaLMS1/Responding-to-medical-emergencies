@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dental Emergency Response Accordion</title>
+    <style>
+        /* Brand Colors */
+        :root {
+            --primary-purple: #532A8C;
+            --light-purple: #9D8ABB;
+            --container-green: #7ABF49; /* Specified green for container */
+            --light-green: #96BF78;
+            --off-white: #F2F2F2;
+            --accent-purple: #C3ACE8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--off-white);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 20px;
+            box-sizing: border-box;
+        }
+
+        .accordion-container {
+            width: 100%;
+            max-width: 700px;
+            background-color: var(--container-green);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .accordion-item {
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 5px; /* Added for visual separation */
+            overflow: hidden; /* Ensures content doesn't overflow rounded corners */
+        }
+
+        .accordion-item:first-child {
+            border-top: none; /* No top border for the first item */
+        }
+
+        .accordion-item:last-child {
+            margin-bottom: 0;
+            border-bottom: none; /* No bottom border for the last item */
+        }
+
+
+        .accordion-header {
+            background-color: var(--primary-purple);
+            color: var(--off-white);
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            border-radius: 5px; /* Rounded corners for the header */
+        }
+
+        .accordion-header:hover {
+            background-color: var(--light-purple);
+        }
+
+        .accordion-header.active {
+            background-color: var(--accent-purple);
+            color: var(--primary-purple); /* Text color when active */
+        }
+
+        .accordion-header .icon {
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-header.active .icon {
+            transform: rotate(90deg);
+        }
+
+        .accordion-content {
+            background-color: var(--off-white);
+            color: var(--primary-purple);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            padding: 0 20px; /* Initial padding of 0 */
+            line-height: 1.6;
+        }
+
+        .accordion-content.open {
+            max-height: 200px; /* Adjust as needed based on content */
+            padding: 15px 20px; /* Padding when open */
+        }
+
+        .accordion-content p {
+            margin: 0 0 10px 0;
+        }
+
+        .accordion-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .accordion-container {
+                margin: 10px;
+                padding: 15px;
+            }
+            .accordion-header {
+                font-size: 1em;
+                padding: 12px 15px;
+            }
+            .accordion-content.open {
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="accordion-container">
+        <div class="accordion-item">
+            <div class="accordion-header">
+                1. Ensure Safety
+                <span class="icon">&#9658;</span> </div>
+            <div class="accordion-content">
+                <p>Prioritize assessing **danger to yourself, other staff, and remaining patients**, then the patient in distress. Remove any immediate hazards to prevent further injury.</p>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <div class="accordion-header">
+                2. Assess Life Risk
+                <span class="icon">&#9658;</span>
+            </div>
+            <div class="accordion-content">
+                <p>Quickly check the patient's **responsiveness, airway, and breathing** (DRSABCD protocol: Danger, Response, Send for Help, Airway, Breathing, CPR, Defibrillation).</p>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <div class="accordion-header">
+                3. Call for Help
+                <span class="icon">&#9658;</span>
+            </div>
+            <div class="accordion-content">
+                <p>Immediately **dial 000 for an ambulance** and alert the dentist/senior staff. Clearly state the emergency, location, and patient's condition.</p>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <div class="accordion-header">
+                4. Provide Basic Aid
+                <span class="icon">&#9658;</span>
+            </div>
+            <div class="accordion-content">
+                <p>While waiting, perform **basic life support or first aid** within your training, such as opening an airway, starting CPR if needed, or assisting with emergency equipment as directed.</p>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <div class="accordion-header">
+                5. Monitor & Support
+                <span class="icon">&#9658;</span>
+            </div>
+            <div class="accordion-content">
+                <p>Continuously **monitor the patient** and provide information to arriving paramedics. Your role is crucial in recognizing the emergency, ensuring safety, activating professional help, and assisting the team within your scope of practice.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const headers = document.querySelectorAll('.accordion-header');
+
+            headers.forEach(header => {
+                header.addEventListener('click', function() {
+                    const content = this.nextElementSibling; // The accordion-content div
+                    const icon = this.querySelector('.icon');
+
+                    // Close any currently open accordion item
+                    document.querySelectorAll('.accordion-content.open').forEach(openContent => {
+                        if (openContent !== content) {
+                            openContent.classList.remove('open');
+                            openContent.previousElementSibling.classList.remove('active');
+                            openContent.previousElementSibling.querySelector('.icon').style.transform = 'rotate(0deg)';
+                        }
+                    });
+
+                    // Toggle the clicked accordion item
+                    content.classList.toggle('open');
+                    this.classList.toggle('active');
+                    icon.style.transform = content.classList.contains('open') ? 'rotate(90deg)' : 'rotate(0deg)';
+
+                    // Adjust max-height dynamically based on content (better for responsiveness)
+                    // This is a common pattern for smooth max-height transitions
+                    if (content.classList.contains('open')) {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    } else {
+                        content.style.maxHeight = "0";
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
